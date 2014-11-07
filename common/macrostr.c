@@ -37,6 +37,7 @@
 #include <sys/sem.h>
 #include <sys/shm.h>
 #include <sys/mman.h>
+#include <sys/resource.h>
 
 static struct {
 	char *ms_cat;

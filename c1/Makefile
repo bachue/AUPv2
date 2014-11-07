@@ -59,35 +59,35 @@ mms: mkmacrostr.o $(AUPOBJS) $(PTHREADSTUB)
 macrostr.o: $(AUPSRC)/common/macrostr.c $(AUPSRC)/common/macrostr.incl
 	$(CC) $(CFLAGS) -c  -o $*.o $(AUPSRC)/common/macrostr.c
 
-mkmacrostr.o: /aup/common/mkmacrostr.c
-	$(CC) $(CFLAGS)  -c -o mkmacrostr.o /aup/common/mkmacrostr.c
+mkmacrostr.o: $(AUPSRC)/common/mkmacrostr.c
+	$(CC) $(CFLAGS)  -c -o mkmacrostr.o $(AUPSRC)/common/mkmacrostr.c
 
-options.o: /aup/common/options.c
-	$(CC) $(CFLAGS)  -c -o options.o /aup/common/options.c
+options.o: $(AUPSRC)/common/options.c
+	$(CC) $(CFLAGS)  -c -o options.o $(AUPSRC)/common/options.c
 
-pthreadstub.o: /aup/common/pthreadstub.c
-	$(CC) $(CFLAGS)  -c -o pthreadstub.o /aup/common/pthreadstub.c
+pthreadstub.o: $(AUPSRC)/common/pthreadstub.c
+	$(CC) $(CFLAGS)  -c -o pthreadstub.o $(AUPSRC)/common/pthreadstub.c
 
-ec.o: /aup/common/ec.c
-	$(CC) $(CFLAGS)  -c -o ec.o /aup/common/ec.c
+ec.o: $(AUPSRC)/common/ec.c
+	$(CC) $(CFLAGS)  -c -o ec.o $(AUPSRC)/common/ec.c
 
-logf.o: /aup/common/logf.c
-	$(CC) $(CFLAGS)  -c -o logf.o /aup/common/logf.c
+logf.o: $(AUPSRC)/common/logf.c
+	$(CC) $(CFLAGS)  -c -o logf.o $(AUPSRC)/common/logf.c
 
-setblock.o: /aup/c4/setblock.c
-	$(CC) $(CFLAGS)  -c -o setblock.o /aup/c4/setblock.c
+setblock.o: $(AUPSRC)/c4/setblock.c
+	$(CC) $(CFLAGS)  -c -o setblock.o $(AUPSRC)/c4/setblock.c
 
-extio.o: /aup/c2/extio.c
-	$(CC) $(CFLAGS)  -c -o extio.o /aup/c2/extio.c
+extio.o: $(AUPSRC)/c2/extio.c
+	$(CC) $(CFLAGS)  -c -o extio.o $(AUPSRC)/c2/extio.c
 
-syserr.o: /aup/c1/syserr.c
-	$(CC) $(CFLAGS)  -c -o syserr.o /aup/c1/syserr.c
+syserr.o: $(AUPSRC)/c1/syserr.c
+	$(CC) $(CFLAGS)  -c -o syserr.o $(AUPSRC)/c1/syserr.c
 
-time.o: /aup/c1/time.c
-	$(CC) $(CFLAGS)  -c -o time.o /aup/c1/time.c
+time.o: $(AUPSRC)/c1/time.c
+	$(CC) $(CFLAGS)  -c -o time.o $(AUPSRC)/c1/time.c
 
-getblksize.o: /aup/c2/getblksize.c
-	$(CC) $(CFLAGS)  -c -o getblksize.o /aup/c2/getblksize.c
+getblksize.o: $(AUPSRC)/c2/getblksize.c
+	$(CC) $(CFLAGS)  -c -o getblksize.o $(AUPSRC)/c2/getblksize.c
 
 ckstdvers: ckstdvers.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o ckstdvers ckstdvers.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -113,29 +113,29 @@ timetst: timetst.o $(AUPOBJS) $(PTHREADSTUB)
 version: version.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o version version.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
-ckvers.o: /aup/c1/ckvers.c
-	$(CC) $(CFLAGS) -DCKVERS_UNIX98 -c -o ckvers.o /aup/c1/ckvers.c
+ckvers.o: $(AUPSRC)/c1/ckvers.c
+	$(CC) $(CFLAGS) -DCKVERS_UNIX98 -c -o ckvers.o $(AUPSRC)/c1/ckvers.c
 
-version.o: /aup/c1/version.c
-	$(CC) $(CFLAGS)  -c -o version.o /aup/c1/version.c
+version.o: $(AUPSRC)/c1/version.c
+	$(CC) $(CFLAGS)  -c -o version.o $(AUPSRC)/c1/version.c
 
-timetst.o: /aup/c1/timetst.c
-	$(CC) $(CFLAGS)  -c -o timetst.o /aup/c1/timetst.c
+timetst.o: $(AUPSRC)/c1/timetst.c
+	$(CC) $(CFLAGS)  -c -o timetst.o $(AUPSRC)/c1/timetst.c
 
-sysconf.o: /aup/c1/sysconf.c
-	$(CC) $(CFLAGS)  -c -o sysconf.o /aup/c1/sysconf.c
+sysconf.o: $(AUPSRC)/c1/sysconf.c
+	$(CC) $(CFLAGS)  -c -o sysconf.o $(AUPSRC)/c1/sysconf.c
 
-errorhandling.o: /aup/c1/errorhandling.c
-	$(CC) $(CFLAGS)  -c -o errorhandling.o /aup/c1/errorhandling.c
+errorhandling.o: $(AUPSRC)/c1/errorhandling.c
+	$(CC) $(CFLAGS)  -c -o errorhandling.o $(AUPSRC)/c1/errorhandling.c
 
-ckstdvers.o: /aup/c1/ckstdvers.c
-	$(CC) $(CFLAGS)  -c -o ckstdvers.o /aup/c1/ckstdvers.c
+ckstdvers.o: $(AUPSRC)/c1/ckstdvers.c
+	$(CC) $(CFLAGS)  -c -o ckstdvers.o $(AUPSRC)/c1/ckstdvers.c
 
-opttest.o: /aup/c1/opttest.c
-	$(CC) $(CFLAGS)  -c -o opttest.o /aup/c1/opttest.c
+opttest.o: $(AUPSRC)/c1/opttest.c
+	$(CC) $(CFLAGS)  -c -o opttest.o $(AUPSRC)/c1/opttest.c
 
-suvreq.o: /aup/c1/suvreq.c
-	$(CC) $(CFLAGS) -DCKVERS_UNIX98x -c -o suvreq.o /aup/c1/suvreq.c
+suvreq.o: $(AUPSRC)/c1/suvreq.c
+	$(CC) $(CFLAGS) -DCKVERS_UNIX98x -c -o suvreq.o $(AUPSRC)/c1/suvreq.c
 
 all:  opttest timetst err version ckvers sysconf ckstdvers suvreq
 clean:

@@ -61,7 +61,9 @@ int main(void) /* mjr */
 #else     /*see what POSIX version*/
    printf("POSIX_VERSION = %ld.\n",_POSIX_VERSION);
    printf("POSIX2_VERSION = %ld.\n",_POSIX2_VERSION);
-   printf("POSIX2_C_VERSION = %ld.\n",_POSIX2_C_VERSION);
+   #ifdef _POSIX2_C_VERSION
+      printf("POSIX2_C_VERSION = %ld.\n",_POSIX2_C_VERSION);
+   #endif
    #if _POSIX_VERSION == 199009
       printf("This system supports POSIX.1 without support for POSIX.4.\n");
    #else

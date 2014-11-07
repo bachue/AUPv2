@@ -46,10 +46,10 @@ defaulttarget: all
 #			OS=LINUX
 #			LIBS="-lncurses -lutil"
 #			TLIBS="-pthread"
-CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
+CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -g -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
-AUPOBJS = syserr.o time.o extio.o getblksize.o setblock.o ec.o logf.o options.o macrostr.o
+AUPOBJS = syserr.o time.o extio.o getblksize.o setblock.o ec.o logf.o options.o macrostr.o 
 
 mms: mkmacrostr.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o mms mkmacrostr.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -59,35 +59,35 @@ mms: mkmacrostr.o $(AUPOBJS) $(PTHREADSTUB)
 macrostr.o: $(AUPSRC)/common/macrostr.c $(AUPSRC)/common/macrostr.incl
 	$(CC) $(CFLAGS) -c  -o $*.o $(AUPSRC)/common/macrostr.c
 
-mkmacrostr.o: /aup/common/mkmacrostr.c
-	$(CC) $(CFLAGS)  -c -o mkmacrostr.o /aup/common/mkmacrostr.c
+mkmacrostr.o: $(AUPSRC)/common/mkmacrostr.c
+	$(CC) $(CFLAGS)  -c -o mkmacrostr.o $(AUPSRC)/common/mkmacrostr.c
 
-options.o: /aup/common/options.c
-	$(CC) $(CFLAGS)  -c -o options.o /aup/common/options.c
+options.o: $(AUPSRC)/common/options.c
+	$(CC) $(CFLAGS)  -c -o options.o $(AUPSRC)/common/options.c
 
-pthreadstub.o: /aup/common/pthreadstub.c
-	$(CC) $(CFLAGS)  -c -o pthreadstub.o /aup/common/pthreadstub.c
+pthreadstub.o: $(AUPSRC)/common/pthreadstub.c
+	$(CC) $(CFLAGS)  -c -o pthreadstub.o $(AUPSRC)/common/pthreadstub.c
 
-ec.o: /aup/common/ec.c
-	$(CC) $(CFLAGS)  -c -o ec.o /aup/common/ec.c
+ec.o: $(AUPSRC)/common/ec.c
+	$(CC) $(CFLAGS)  -c -o ec.o $(AUPSRC)/common/ec.c
 
-logf.o: /aup/common/logf.c
-	$(CC) $(CFLAGS)  -c -o logf.o /aup/common/logf.c
+logf.o: $(AUPSRC)/common/logf.c
+	$(CC) $(CFLAGS)  -c -o logf.o $(AUPSRC)/common/logf.c
 
-setblock.o: /aup/c4/setblock.c
-	$(CC) $(CFLAGS)  -c -o setblock.o /aup/c4/setblock.c
+setblock.o: $(AUPSRC)/c4/setblock.c
+	$(CC) $(CFLAGS)  -c -o setblock.o $(AUPSRC)/c4/setblock.c
 
-extio.o: /aup/c2/extio.c
-	$(CC) $(CFLAGS)  -c -o extio.o /aup/c2/extio.c
+extio.o: $(AUPSRC)/c2/extio.c
+	$(CC) $(CFLAGS)  -c -o extio.o $(AUPSRC)/c2/extio.c
 
-syserr.o: /aup/c1/syserr.c
-	$(CC) $(CFLAGS)  -c -o syserr.o /aup/c1/syserr.c
+syserr.o: $(AUPSRC)/c1/syserr.c
+	$(CC) $(CFLAGS)  -c -o syserr.o $(AUPSRC)/c1/syserr.c
 
-time.o: /aup/c1/time.c
-	$(CC) $(CFLAGS)  -c -o time.o /aup/c1/time.c
+time.o: $(AUPSRC)/c1/time.c
+	$(CC) $(CFLAGS)  -c -o time.o $(AUPSRC)/c1/time.c
 
-getblksize.o: /aup/c2/getblksize.c
-	$(CC) $(CFLAGS)  -c -o getblksize.o /aup/c2/getblksize.c
+getblksize.o: $(AUPSRC)/c2/getblksize.c
+	$(CC) $(CFLAGS)  -c -o getblksize.o $(AUPSRC)/c2/getblksize.c
 
 syncio: syncio.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o syncio syncio.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -101,21 +101,25 @@ writev: writev.o $(AUPOBJS) $(PTHREADSTUB)
 x2: x2.o bufio.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o x2 x2.o bufio.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
-syncio.o: /aup/c2/syncio.c
-	$(CC) $(CFLAGS)  -c -o syncio.o /aup/c2/syncio.c
+syncio.o: $(AUPSRC)/c2/syncio.c
+	$(CC) $(CFLAGS)  -c -o syncio.o $(AUPSRC)/c2/syncio.c
 
-x2.o: /aup/c2/x2.c
-	$(CC) $(CFLAGS)  -c -o x2.o /aup/c2/x2.c
+x2.o: $(AUPSRC)/c2/x2.c
+	$(CC) $(CFLAGS)  -c -o x2.o $(AUPSRC)/c2/x2.c
 
-trunc.o: /aup/c2/trunc.c
-	$(CC) $(CFLAGS)  -c -o trunc.o /aup/c2/trunc.c
+trunc.o: $(AUPSRC)/c2/trunc.c
+	$(CC) $(CFLAGS)  -c -o trunc.o $(AUPSRC)/c2/trunc.c
 
-bufio.o: /aup/c2/bufio.c
-	$(CC) $(CFLAGS)  -c -o bufio.o /aup/c2/bufio.c
+bufio.o: $(AUPSRC)/c2/bufio.c
+	$(CC) $(CFLAGS)  -c -o bufio.o $(AUPSRC)/c2/bufio.c
 
-writev.o: /aup/c2/writev.c
-	$(CC) $(CFLAGS)  -c -o writev.o /aup/c2/writev.c
+writev.o: $(AUPSRC)/c2/writev.c
+	$(CC) $(CFLAGS)  -c -o writev.o $(AUPSRC)/c2/writev.c
+testlock.o: $(AUPSRC)/c2/testlock.c
+	$(CC) $(CFLAGS)  -c -o testlock.o $(AUPSRC)/c2/testlock.c
+testlock: testlock.o
+	$(CC) -o testlock testlock.o $(AUPOBJS) $(LIBS)
 
-all:  x2 writev trunc syncio
+all:  x2 writev trunc syncio testlock
 clean:
 	rm  x2 writev trunc syncio *.o
