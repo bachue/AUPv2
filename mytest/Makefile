@@ -49,16 +49,23 @@ defaulttarget: all
 CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
-AUPOBJS = hello
+AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
+EXECS = hello testlock
 #############################################
 # Utility to build macro-string program
 #############################################
 hello.o:
 	$(CC) $(CFLAGS) -c  -o hello.o $(AUPSRC)/mytest/hello.c
 
-hello: hello.o
-	$(CC) $(CFLAGS) -o hello $(AUPSRC)/mytest/hello.o $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
+testlock.o: $(AUPSRC)/c2/testlock.c
+	$(CC) $(CFLAGS)  -c -o testlock.o $(AUPSRC)/mytest/testlock.c
 
-all:  $(AUPOBJS)
+hello: hello.o
+	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
+
+testlock: testlock.o
+	$(CC) -o testlock testlock.o $(AUPOBJS) $(LIBS)
+
+all:  $(EXECS)
 clean:
-	rm *.o $(AUPOBJS)
+	rm -f *.o $(EXECS)
