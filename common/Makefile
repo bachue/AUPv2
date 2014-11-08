@@ -46,7 +46,7 @@ defaulttarget: all
 #			OS=LINUX
 #			LIBS="-lncurses -lutil"
 #			TLIBS="-pthread"
-CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
+CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -g -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = syserr.o time.o extio.o getblksize.o setblock.o ec.o logf.o options.o macrostr.o
