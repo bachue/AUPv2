@@ -50,21 +50,27 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock
+EXECS = hello testlock append_test
 #############################################
 # Utility to build macro-string program
 #############################################
 hello.o:
 	$(CC) $(CFLAGS) -c  -o hello.o $(AUPSRC)/mytest/hello.c
 
-testlock.o: $(AUPSRC)/c2/testlock.c
+testlock.o: $(AUPSRC)/mytest/testlock.c
 	$(CC) $(CFLAGS)  -c -o testlock.o $(AUPSRC)/mytest/testlock.c
+
+append_test.o: $(AUPSRC)/mytest/append_test.c
+	$(CC) $(CFLAGS)  -c -o append_test.o $(AUPSRC)/mytest/append_test.c
 
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
 testlock: testlock.o
 	$(CC) -o testlock testlock.o $(AUPOBJS) $(LIBS)
+
+append_test: append_test.o
+	$(CC) -o append_test append_test.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:

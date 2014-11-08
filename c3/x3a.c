@@ -579,11 +579,11 @@ int main(int argc, char *argv[])
 	access_test();
 	fcntl_example();
 	rmdir_test();
+*/
 	if (argc > 1)
 		print_statvfs(argv[1]);
 	else
 		print_statvfs(NULL);
-*/
 #ifdef _XOPEN_UNIX
 	getdate_example();
 #else
