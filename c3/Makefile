@@ -105,7 +105,7 @@ inode: inode.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o inode inode.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
 sio: sio.o $(AUPOBJS) $(PTHREADSTUB)
-	$(CC) -o sio sio.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
+	$(CC) -o sio sio.o $(AUPOBJS) $(LIBS) -lrt $(PTHREADSTUB)
 
 slink: slink.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o slink slink.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
