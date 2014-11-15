@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test setblock readany readany2
+EXECS = hello testlock append_test aread setblock readany readany2
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -75,6 +75,9 @@ readany.o: $(AUPSRC)/mytest/readany.c
 readany2.o: $(AUPSRC)/mytest/readany2.c
 	$(CC) $(CFLAGS) -c -o readany2.o $(AUPSRC)/mytest/readany2.c
 
+aread.o: $(AUPSRC)/mytest/aread.c
+	$(CC) $(CFLAGS)  -c -o aread.o $(AUPSRC)/mytest/aread.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -92,6 +95,9 @@ readany: readany.o libsetblock.o
 
 readany2: readany2.o
 	$(CC) -o readany2 readany2.o $(AUPOBJS) $(LIBS)
+
+aread: aread.o
+	$(CC) -o aread aread.o $(AUPOBJS) $(LIBS) -lrt
 
 all:  $(EXECS)
 clean:
