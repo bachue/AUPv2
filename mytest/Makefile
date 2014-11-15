@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2
+EXECS = hello testlock append_test aread setblock readany readany2 test_tc_keystroke test_tc_setraw
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -78,6 +78,12 @@ readany2.o: $(AUPSRC)/mytest/readany2.c
 aread.o: $(AUPSRC)/mytest/aread.c
 	$(CC) $(CFLAGS)  -c -o aread.o $(AUPSRC)/mytest/aread.c
 
+test_tc_keystroke.o: $(AUPSRC)/mytest/test_tc_keystroke.c
+	$(CC) $(CFLAGS)  -c -o test_tc_keystroke.o $(AUPSRC)/mytest/test_tc_keystroke.c
+
+test_tc_setraw.o: $(AUPSRC)/mytest/test_tc_setraw.c
+	$(CC) $(CFLAGS)  -c -o test_tc_setraw.o $(AUPSRC)/mytest/test_tc_setraw.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -98,6 +104,12 @@ readany2: readany2.o
 
 aread: aread.o
 	$(CC) -o aread aread.o $(AUPOBJS) $(LIBS) -lrt
+
+test_tc_keystroke: test_tc_keystroke.o $(AUPSRC)/c4/tc_setraw.o
+	$(CC) -o test_tc_keystroke $(AUPSRC)/c4/tc_setraw.o test_tc_keystroke.o $(AUPOBJS) $(LIBS) -lrt
+
+test_tc_setraw: test_tc_setraw.o $(AUPSRC)/c4/tc_setraw.o
+	$(CC) -o test_tc_setraw $(AUPSRC)/c4/tc_setraw.o test_tc_setraw.o $(AUPOBJS) $(LIBS) -lrt
 
 all:  $(EXECS)
 clean:
