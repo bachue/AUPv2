@@ -20,7 +20,8 @@
 	are to be used.
 
 */
-#define __EXTENSIONS__
+#define __EXTENSIONS__    
+	  
 #include "defs.h"
 /*3-3*/
 #ifdef WANT_INODE

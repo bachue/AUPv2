@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test
+EXECS = hello testlock append_test setblock readany readany2
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -58,10 +58,22 @@ hello.o:
 	$(CC) $(CFLAGS) -c  -o hello.o $(AUPSRC)/mytest/hello.c
 
 testlock.o: $(AUPSRC)/mytest/testlock.c
-	$(CC) $(CFLAGS)  -c -o testlock.o $(AUPSRC)/mytest/testlock.c
+	$(CC) $(CFLAGS) -c -o testlock.o $(AUPSRC)/mytest/testlock.c
 
 append_test.o: $(AUPSRC)/mytest/append_test.c
-	$(CC) $(CFLAGS)  -c -o append_test.o $(AUPSRC)/mytest/append_test.c
+	$(CC) $(CFLAGS) -c -o append_test.o $(AUPSRC)/mytest/append_test.c
+
+setblock.o: $(AUPSRC)/mytest/setblock.c
+	$(CC) $(CFLAGS) -c -o setblock.o $(AUPSRC)/mytest/setblock.c
+
+libsetblock.o: $(AUPSRC)/c4/setblock.c
+	$(CC) $(CFLAGS) -c -o libsetblock.o $(AUPSRC)/c4/setblock.c
+
+readany.o: $(AUPSRC)/mytest/readany.c
+	$(CC) $(CFLAGS) -c -o readany.o $(AUPSRC)/mytest/readany.c
+
+readany2.o: $(AUPSRC)/mytest/readany2.c
+	$(CC) $(CFLAGS) -c -o readany2.o $(AUPSRC)/mytest/readany2.c
 
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
@@ -71,6 +83,15 @@ testlock: testlock.o
 
 append_test: append_test.o
 	$(CC) -o append_test append_test.o $(AUPOBJS) $(LIBS)
+
+setblock: setblock.o libsetblock.o
+	$(CC) -o setblock setblock.o libsetblock.o $(AUPOBJS) $(LIBS)
+
+readany: readany.o libsetblock.o
+	$(CC) -o readany readany.o libsetblock.o $(AUPOBJS) $(LIBS)
+
+readany2: readany2.o
+	$(CC) -o readany2 readany2.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:
