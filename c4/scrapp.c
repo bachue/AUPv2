@@ -78,13 +78,13 @@ int main(void)
 	setbuf(stdout, NULL);
 	while (true) {
 		ec_false( clear() )
-		ec_false( mvaddstr( 2, 9, "What do you want to do?") )
-		ec_false( mvaddstr( 3, 9, "1. Check out tape/DVD") )
-		ec_false( mvaddstr( 4, 9, "2. Reserve tape/DVD") )
-		ec_false( mvaddstr( 5, 9, "3. Register new member") )
-		ec_false( mvaddstr( 6, 9, "4. Search for title/actor") )
-		ec_false( mvaddstr( 7, 9, "5. Quit") )
-		ec_false( mvaddstr( 9, 9, "(Type item number to continue)") )
+		ec_false( mvaddstr( 2, 2, "What do you want to do?") )
+		ec_false( mvaddstr( 3, 2, "1. Check out tape/DVD") )
+		ec_false( mvaddstr( 4, 2, "2. Reserve tape/DVD") )
+		ec_false( mvaddstr( 5, 2, "3. Register new member") )
+		ec_false( mvaddstr( 6, 2, "4. Search for title/actor") )
+		ec_false( mvaddstr( 7, 2, "5. Quit") )
+		ec_false( mvaddstr( 9, 2, "(Type item number to continue)") )
 		ec_neg1( c = getch() )
 		switch (c) {
 		case '1':
@@ -93,8 +93,8 @@ int main(void)
 		case '4':
 			ec_false( clear() )
 			snprintf(s, sizeof(s), "You typed %c", c);
-			ec_false( mvaddstr( 4, 9, s) )
-			ec_false( mvaddstr( 9, 9, "(Press any key to continue)") )
+			ec_false( mvaddstr( 4, 2, s) )
+			ec_false( mvaddstr( 9, 2, "(Press any key to continue)") )
 			ec_neg1( getch() )
 			break;
 		case '5':
