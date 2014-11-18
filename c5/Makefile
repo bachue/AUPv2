@@ -46,7 +46,7 @@ defaulttarget: all
 #			OS=LINUX
 #			LIBS="-lncurses -lutil"
 #			TLIBS="-pthread"
-CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
+CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -g -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = syserr.o time.o extio.o getblksize.o setblock.o ec.o logf.o options.o macrostr.o
@@ -59,35 +59,35 @@ mms: mkmacrostr.o $(AUPOBJS) $(PTHREADSTUB)
 macrostr.o: $(AUPSRC)/common/macrostr.c $(AUPSRC)/common/macrostr.incl
 	$(CC) $(CFLAGS) -c  -o $*.o $(AUPSRC)/common/macrostr.c
 
-mkmacrostr.o: /aup/common/mkmacrostr.c
-	$(CC) $(CFLAGS)  -c -o mkmacrostr.o /aup/common/mkmacrostr.c
+mkmacrostr.o: $(AUPSRC)/common/mkmacrostr.c
+	$(CC) $(CFLAGS)  -c -o mkmacrostr.o $(AUPSRC)/common/mkmacrostr.c
 
-options.o: /aup/common/options.c
-	$(CC) $(CFLAGS)  -c -o options.o /aup/common/options.c
+options.o: $(AUPSRC)/common/options.c
+	$(CC) $(CFLAGS)  -c -o options.o $(AUPSRC)/common/options.c
 
-pthreadstub.o: /aup/common/pthreadstub.c
-	$(CC) $(CFLAGS)  -c -o pthreadstub.o /aup/common/pthreadstub.c
+pthreadstub.o: $(AUPSRC)/common/pthreadstub.c
+	$(CC) $(CFLAGS)  -c -o pthreadstub.o $(AUPSRC)/common/pthreadstub.c
 
-ec.o: /aup/common/ec.c
-	$(CC) $(CFLAGS)  -c -o ec.o /aup/common/ec.c
+ec.o: $(AUPSRC)/common/ec.c
+	$(CC) $(CFLAGS)  -c -o ec.o $(AUPSRC)/common/ec.c
 
-logf.o: /aup/common/logf.c
-	$(CC) $(CFLAGS)  -c -o logf.o /aup/common/logf.c
+logf.o: $(AUPSRC)/common/logf.c
+	$(CC) $(CFLAGS)  -c -o logf.o $(AUPSRC)/common/logf.c
 
-setblock.o: /aup/c4/setblock.c
-	$(CC) $(CFLAGS)  -c -o setblock.o /aup/c4/setblock.c
+setblock.o: $(AUPSRC)/c4/setblock.c
+	$(CC) $(CFLAGS)  -c -o setblock.o $(AUPSRC)/c4/setblock.c
 
-extio.o: /aup/c2/extio.c
-	$(CC) $(CFLAGS)  -c -o extio.o /aup/c2/extio.c
+extio.o: $(AUPSRC)/c2/extio.c
+	$(CC) $(CFLAGS)  -c -o extio.o $(AUPSRC)/c2/extio.c
 
-syserr.o: /aup/c1/syserr.c
-	$(CC) $(CFLAGS)  -c -o syserr.o /aup/c1/syserr.c
+syserr.o: $(AUPSRC)/c1/syserr.c
+	$(CC) $(CFLAGS)  -c -o syserr.o $(AUPSRC)/c1/syserr.c
 
-time.o: /aup/c1/time.c
-	$(CC) $(CFLAGS)  -c -o time.o /aup/c1/time.c
+time.o: $(AUPSRC)/c1/time.c
+	$(CC) $(CFLAGS)  -c -o time.o $(AUPSRC)/c1/time.c
 
-getblksize.o: /aup/c2/getblksize.c
-	$(CC) $(CFLAGS)  -c -o getblksize.o /aup/c2/getblksize.c
+getblksize.o: $(AUPSRC)/c2/getblksize.c
+	$(CC) $(CFLAGS)  -c -o getblksize.o $(AUPSRC)/c2/getblksize.c
 
 aupnice: nice.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o aupnice nice.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -149,74 +149,74 @@ x5: x5.o setenv.o $(AUPOBJS) $(PTHREADSTUB)
 x5a: x5a.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o x5a x5a.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
-waitid.o: /aup/c5/waitid.c
-	$(CC) $(CFLAGS)  -c -o waitid.o /aup/c5/waitid.c
+waitid.o: $(AUPSRC)/c5/waitid.c
+	$(CC) $(CFLAGS)  -c -o waitid.o $(AUPSRC)/c5/waitid.c
 
-uidgrp.o: /aup/c5/uidgrp.c
-	$(CC) $(CFLAGS)  -c -o uidgrp.o /aup/c5/uidgrp.c
+uidgrp.o: $(AUPSRC)/c5/uidgrp.c
+	$(CC) $(CFLAGS)  -c -o uidgrp.o $(AUPSRC)/c5/uidgrp.c
 
-tx4.o: /aup/c5/tx4.c
-	$(CC) $(CFLAGS)  -c -o tx4.o /aup/c5/tx4.c
+tx4.o: $(AUPSRC)/c5/tx4.c
+	$(CC) $(CFLAGS)  -c -o tx4.o $(AUPSRC)/c5/tx4.c
 
-t2-mtx.o: /aup/c5/t2-mtx.c
-	$(CC) $(CFLAGS)  -c -o t2-mtx.o /aup/c5/t2-mtx.c
+t2-mtx.o: $(AUPSRC)/c5/t2-mtx.c
+	$(CC) $(CFLAGS)  -c -o t2-mtx.o $(AUPSRC)/c5/t2-mtx.c
 
-setenv.o: /aup/c5/setenv.c
-	$(CC) $(CFLAGS)  -c -o setenv.o /aup/c5/setenv.c
+setenv.o: $(AUPSRC)/c5/setenv.c
+	$(CC) $(CFLAGS)  -c -o setenv.o $(AUPSRC)/c5/setenv.c
 
-tx7.o: /aup/c5/tx7.c
-	$(CC) $(CFLAGS)  -c -o tx7.o /aup/c5/tx7.c
+tx7.o: $(AUPSRC)/c5/tx7.c
+	$(CC) $(CFLAGS)  -c -o tx7.o $(AUPSRC)/c5/tx7.c
 
-t1.o: /aup/c5/t1.c
-	$(CC) $(CFLAGS)  -c -o t1.o /aup/c5/t1.c
+t1.o: $(AUPSRC)/c5/t1.c
+	$(CC) $(CFLAGS)  -c -o t1.o $(AUPSRC)/c5/t1.c
 
-statuspr.o: /aup/c5/statuspr.c
-	$(CC) $(CFLAGS)  -c -o statuspr.o /aup/c5/statuspr.c
+statuspr.o: $(AUPSRC)/c5/statuspr.c
+	$(CC) $(CFLAGS)  -c -o statuspr.o $(AUPSRC)/c5/statuspr.c
 
-tx2.o: /aup/c5/tx2.c
-	$(CC) $(CFLAGS)  -c -o tx2.o /aup/c5/tx2.c
+tx2.o: $(AUPSRC)/c5/tx2.c
+	$(CC) $(CFLAGS)  -c -o tx2.o $(AUPSRC)/c5/tx2.c
 
-x5.o: /aup/c5/x5.c
-	$(CC) $(CFLAGS)  -c -o x5.o /aup/c5/x5.c
+x5.o: $(AUPSRC)/c5/x5.c
+	$(CC) $(CFLAGS)  -c -o x5.o $(AUPSRC)/c5/x5.c
 
-tx5.o: /aup/c5/tx5.c
-	$(CC) $(CFLAGS)  -c -o tx5.o /aup/c5/tx5.c
+tx5.o: $(AUPSRC)/c5/tx5.c
+	$(CC) $(CFLAGS)  -c -o tx5.o $(AUPSRC)/c5/tx5.c
 
-x5a.o: /aup/c5/x5a.c
-	$(CC) $(CFLAGS)  -c -o x5a.o /aup/c5/x5a.c
+x5a.o: $(AUPSRC)/c5/x5a.c
+	$(CC) $(CFLAGS)  -c -o x5a.o $(AUPSRC)/c5/x5a.c
 
-builtin.o: /aup/c5/builtin.c
-	$(CC) $(CFLAGS)  -c -o builtin.o /aup/c5/builtin.c
+builtin.o: $(AUPSRC)/c5/builtin.c
+	$(CC) $(CFLAGS)  -c -o builtin.o $(AUPSRC)/c5/builtin.c
 
-t2.o: /aup/c5/t2.c
-	$(CC) $(CFLAGS)  -c -o t2.o /aup/c5/t2.c
+t2.o: $(AUPSRC)/c5/t2.c
+	$(CC) $(CFLAGS)  -c -o t2.o $(AUPSRC)/c5/t2.c
 
-limit.o: /aup/c5/limit.c
-	$(CC) $(CFLAGS)  -c -o limit.o /aup/c5/limit.c
+limit.o: $(AUPSRC)/c5/limit.c
+	$(CC) $(CFLAGS)  -c -o limit.o $(AUPSRC)/c5/limit.c
 
-nice.o: /aup/c5/nice.c
-	$(CC) $(CFLAGS)  -c -o nice.o /aup/c5/nice.c
+nice.o: $(AUPSRC)/c5/nice.c
+	$(CC) $(CFLAGS)  -c -o nice.o $(AUPSRC)/c5/nice.c
 
-tx3.o: /aup/c5/tx3.c
-	$(CC) $(CFLAGS)  -c -o tx3.o /aup/c5/tx3.c
+tx3.o: $(AUPSRC)/c5/tx3.c
+	$(CC) $(CFLAGS)  -c -o tx3.o $(AUPSRC)/c5/tx3.c
 
-sh0.o: /aup/c5/sh0.c
-	$(CC) $(CFLAGS)  -c -o sh0.o /aup/c5/sh0.c
+sh0.o: $(AUPSRC)/c5/sh0.c
+	$(CC) $(CFLAGS)  -c -o sh0.o $(AUPSRC)/c5/sh0.c
 
-fpe.o: /aup/c5/fpe.c
-	$(CC) $(CFLAGS)  -c -o fpe.o /aup/c5/fpe.c
+fpe.o: $(AUPSRC)/c5/fpe.c
+	$(CC) $(CFLAGS)  -c -o fpe.o $(AUPSRC)/c5/fpe.c
 
-tx6.o: /aup/c5/tx6.c
-	$(CC) $(CFLAGS)  -c -o tx6.o /aup/c5/tx6.c
+tx6.o: $(AUPSRC)/c5/tx6.c
+	$(CC) $(CFLAGS)  -c -o tx6.o $(AUPSRC)/c5/tx6.c
 
-t0.o: /aup/c5/t0.c
-	$(CC) $(CFLAGS)  -c -o t0.o /aup/c5/t0.c
+t0.o: $(AUPSRC)/c5/t0.c
+	$(CC) $(CFLAGS)  -c -o t0.o $(AUPSRC)/c5/t0.c
 
-waitpid.o: /aup/c5/waitpid.c
-	$(CC) $(CFLAGS)  -c -o waitpid.o /aup/c5/waitpid.c
+waitpid.o: $(AUPSRC)/c5/waitpid.c
+	$(CC) $(CFLAGS)  -c -o waitpid.o $(AUPSRC)/c5/waitpid.c
 
-tx1.o: /aup/c5/tx1.c
-	$(CC) $(CFLAGS)  -c -o tx1.o /aup/c5/tx1.c
+tx1.o: $(AUPSRC)/c5/tx1.c
+	$(CC) $(CFLAGS)  -c -o tx1.o $(AUPSRC)/c5/tx1.c
 
 all:  tx6 lim uidgrp tx7 waitpid x5 tx1 t0 fpe x5a tx2 t1 tx3 t2-mtx t2 tx4 aupnice waitid tx5 sh0
 clean:
