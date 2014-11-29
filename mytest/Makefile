@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -81,6 +81,12 @@ readany3.o: $(AUPSRC)/mytest/readany3.c
 aread.o: $(AUPSRC)/mytest/aread.c
 	$(CC) $(CFLAGS)  -c -o aread.o $(AUPSRC)/mytest/aread.c
 
+fsort0.o: $(AUPSRC)/mytest/fsort0.c
+	$(CC) $(CFLAGS)  -c -o fsort0.o $(AUPSRC)/mytest/fsort0.c
+
+fsort.o: $(AUPSRC)/mytest/fsort.c
+	$(CC) $(CFLAGS)  -c -o fsort.o $(AUPSRC)/mytest/fsort.c
+
 test_tc_keystroke.o: $(AUPSRC)/mytest/test_tc_keystroke.c
 	$(CC) $(CFLAGS)  -c -o test_tc_keystroke.o $(AUPSRC)/mytest/test_tc_keystroke.c
 
@@ -110,6 +116,12 @@ readany3: readany3.o
 
 aread: aread.o
 	$(CC) -o aread aread.o $(AUPOBJS) $(LIBS) -lrt
+
+fsort0: fsort0.o
+	$(CC) -o fsort0 fsort0.o $(AUPOBJS) $(LIBS)
+
+fsort: fsort.o
+	$(CC) -o fsort fsort.o $(AUPOBJS) $(LIBS)
 
 test_tc_keystroke: test_tc_keystroke.o $(AUPSRC)/c4/tc_setraw.o
 	$(CC) -o test_tc_keystroke $(AUPSRC)/c4/tc_setraw.o test_tc_keystroke.o $(AUPOBJS) $(LIBS) -lrt
