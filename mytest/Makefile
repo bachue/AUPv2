@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -93,6 +93,12 @@ test_tc_keystroke.o: $(AUPSRC)/mytest/test_tc_keystroke.c
 test_tc_setraw.o: $(AUPSRC)/mytest/test_tc_setraw.c
 	$(CC) $(CFLAGS)  -c -o test_tc_setraw.o $(AUPSRC)/mytest/test_tc_setraw.c
 
+msg_server.o: $(AUPSRC)/mytest/msg_server.c
+	$(CC) $(CFLAGS)  -c -o msg_server.o $(AUPSRC)/mytest/msg_server.c
+
+msg_client.o: $(AUPSRC)/mytest/msg_client.c
+	$(CC) $(CFLAGS)  -c -o msg_client.o $(AUPSRC)/mytest/msg_client.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -125,9 +131,14 @@ fsort: fsort.o
 
 test_tc_keystroke: test_tc_keystroke.o $(AUPSRC)/c4/tc_setraw.o
 	$(CC) -o test_tc_keystroke $(AUPSRC)/c4/tc_setraw.o test_tc_keystroke.o $(AUPOBJS) $(LIBS) -lrt
-
 test_tc_setraw: test_tc_setraw.o $(AUPSRC)/c4/tc_setraw.o
 	$(CC) -o test_tc_setraw $(AUPSRC)/c4/tc_setraw.o test_tc_setraw.o $(AUPOBJS) $(LIBS) -lrt
+
+msg_server: msg_server.o
+	$(CC) -o msg_server msg_server.o $(AUPOBJS) $(LIBS)
+
+msg_client: msg_client.o
+	$(CC) -o msg_client msg_client.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:
