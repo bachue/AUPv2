@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -99,6 +99,12 @@ msg_server.o: $(AUPSRC)/mytest/msg_server.c
 msg_client.o: $(AUPSRC)/mytest/msg_client.c
 	$(CC) $(CFLAGS)  -c -o msg_client.o $(AUPSRC)/mytest/msg_client.c
 
+mq_server.o: $(AUPSRC)/mytest/mq_server.c
+	$(CC) $(CFLAGS)  -c -o mq_server.o $(AUPSRC)/mytest/mq_server.c -lrt
+
+mq_client.o: $(AUPSRC)/mytest/mq_client.c
+	$(CC) $(CFLAGS)  -c -o mq_client.o $(AUPSRC)/mytest/mq_client.c -lrt
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -139,6 +145,12 @@ msg_server: msg_server.o
 
 msg_client: msg_client.o
 	$(CC) -o msg_client msg_client.o $(AUPOBJS) $(LIBS)
+
+mq_server: mq_server.o
+	$(CC) -o mq_server mq_server.o $(AUPOBJS) $(LIBS) -lrt
+
+mq_client: mq_client.o
+	$(CC) -o mq_client mq_client.o $(AUPOBJS) $(LIBS) -lrt
 
 all:  $(EXECS)
 clean:
