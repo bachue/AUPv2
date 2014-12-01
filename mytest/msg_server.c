@@ -6,6 +6,7 @@ int main(void)
 	int server = -1, i;
 	ssize_t nread;
         struct {
+            long msgtype;
             int client;
             char sm_data[200];
         } msg;
@@ -22,10 +23,11 @@ int main(void)
         ec_neg1(server = msgget(key, IPC_CREAT | PERM_FILE));
 
 	while (true) {
-		ec_neg1( nread = msgrcv(server, &msg, sizeof(msg), 0, 0) )
+		ec_neg1( nread = msgrcv(server, &msg, sizeof(msg.sm_data) + sizeof(msg.client), 0, 0) )
 		for (i = 0; msg.sm_data[i] != '\0'; i++)
 			msg.sm_data[i] = toupper(msg.sm_data[i]);
-		ec_neg1(msgsnd(msg.client, msg.sm_data, sizeof(msg.sm_data), 0))
+                msg.msgtype = 1;
+		ec_neg1(msgsnd(msg.client, &msg, sizeof(msg.sm_data) + sizeof(msg.client), 0))
 	}
 	/* never actually get here */
         msgctl(server, IPC_RMID, NULL);

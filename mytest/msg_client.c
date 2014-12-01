@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
 	int server = -1, client = -1, i;
 	ssize_t nread;
         struct {
+            long msgtype;
             int client;
             char sm_data[200];
         } msg;
@@ -27,9 +28,10 @@ int main(int argc, char *argv[])
 
 	for (i = 0; work[i] != NULL; i++) {
                 msg.client = client;
+                msg.msgtype = 1;
 		strcpy(msg.sm_data, work[i]);
-		ec_neg1(msgsnd(server, &msg, sizeof(msg), 0))
-		ec_neg1( nread = msgrcv(client, msg.sm_data, sizeof(msg.sm_data), 0, 0) )
+		ec_neg1(msgsnd(server, &msg, sizeof(msg.sm_data) + sizeof(msg.client), 0))
+		ec_neg1( nread = msgrcv(client, &msg, sizeof(msg.sm_data) + sizeof(msg.client), 0, 0) )
 		//printf("client got %d from read\n", nread);
 		if (nread == 0) {
 			errno = ENETDOWN;
