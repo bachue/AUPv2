@@ -89,8 +89,14 @@ time.o: $(AUPSRC)/c1/time.c
 getblksize.o: $(AUPSRC)/c2/getblksize.c
 	$(CC) $(CFLAGS)  -c -o getblksize.o $(AUPSRC)/c2/getblksize.c
 
+pipetest.o: $(AUPSRC)/c6/pipetest.c
+	$(CC) $(CFLAGS)  -c -o pipetest.o $(AUPSRC)/c6/pipetest.c
+
 piperead: piperead.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o piperead piperead.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
+
+pipetest: pipetest.o $(AUPOBJS) $(PTHREADSTUB)
+	$(CC) -o pipetest pipetest.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
 search0: search0.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o search0 search0.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -128,6 +134,6 @@ x6.o: $(AUPSRC)/c6/x6.c
 sh3.o: $(AUPSRC)/c6/sh3.c
 	$(CC) $(CFLAGS)  -c -o sh3.o $(AUPSRC)/c6/sh3.c
 
-all:  sh3 search0 x6 search1 piperead
+all:  sh3 search0 x6 search1 piperead pipetest
 clean:
 	rm  sh3 search0 x6 search1 piperead *.o
