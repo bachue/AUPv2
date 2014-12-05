@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -111,6 +111,12 @@ sysv_sem_producer.o: $(AUPSRC)/mytest/sysv_sem_producer.c
 sysv_sem_consumer.o: $(AUPSRC)/mytest/sysv_sem_consumer.c
 	$(CC) $(CFLAGS)  -c -o sysv_sem_consumer.o $(AUPSRC)/mytest/sysv_sem_consumer.c
 
+posix_sem_producer.o: $(AUPSRC)/mytest/posix_sem_producer.c
+	$(CC) $(CFLAGS)  -c -o posix_sem_producer.o $(AUPSRC)/mytest/posix_sem_producer.c -lrt
+
+posix_sem_consumer.o: $(AUPSRC)/mytest/posix_sem_consumer.c
+	$(CC) $(CFLAGS)  -c -o posix_sem_consumer.o $(AUPSRC)/mytest/posix_sem_consumer.c -lrt
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -163,6 +169,12 @@ sysv_sem_producer: sysv_sem_producer.o
 
 sysv_sem_consumer: sysv_sem_consumer.o
 	$(CC) -o sysv_sem_consumer sysv_sem_consumer.o $(AUPOBJS) $(LIBS)
+
+posix_sem_producer: posix_sem_producer.o
+	$(CC) -o posix_sem_producer posix_sem_producer.o $(AUPOBJS) $(LIBS) $(TLIBS) -lrt
+
+posix_sem_consumer: posix_sem_consumer.o
+	$(CC) -o posix_sem_consumer posix_sem_consumer.o $(AUPOBJS) $(LIBS) $(TLIBS) -lrt
 
 all:  $(EXECS)
 clean:
