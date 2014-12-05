@@ -18,8 +18,8 @@ int main(void)
     attr.mq_maxmsg = 10;
     attr.mq_msgsize = sizeof(msg);
 
-    mq_unlink(mqname_server);
-    ec_cmp(errno, ENOSYS);
+//    mq_unlink(mqname_server);
+//    ec_cmp(errno, ENOSYS);
 
     ec_neg1(server = mq_open(mqname_server, O_RDONLY | O_CREAT, PERM_FILE, &attr));
 
@@ -28,6 +28,7 @@ int main(void)
         ec_neg1(nread = mq_receive(server, (char *) &msg, sizeof(msg), NULL))
         snprintf(mqname_client, 100, "/mq_%ld", (long) msg.client_pid);
         ec_neg1(client = mq_open(mqname_client, O_WRONLY));
+        printf("LOG: %s\n", msg.sm_data);
         for (i = 0; msg.sm_data[i] != '\0'; i++)
             msg.sm_data[i] = toupper(msg.sm_data[i]);
         ec_neg1(mq_send(client, (const char *) &msg, sizeof(msg), 0))
