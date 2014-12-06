@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstri
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -117,6 +117,9 @@ posix_sem_producer.o: $(AUPSRC)/mytest/posix_sem_producer.c
 posix_sem_consumer.o: $(AUPSRC)/mytest/posix_sem_consumer.c
 	$(CC) $(CFLAGS)  -c -o posix_sem_consumer.o $(AUPSRC)/mytest/posix_sem_consumer.c -lrt
 
+test_shared_mem.o: $(AUPSRC)/mytest/test_shared_mem.c
+	$(CC) $(CFLAGS)  -c -o test_shared_mem.o $(AUPSRC)/mytest/test_shared_mem.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -175,6 +178,9 @@ posix_sem_producer: posix_sem_producer.o
 
 posix_sem_consumer: posix_sem_consumer.o
 	$(CC) -o posix_sem_consumer posix_sem_consumer.o $(AUPOBJS) $(LIBS) $(TLIBS) -lrt
+
+test_shared_mem: test_shared_mem.o
+	$(CC) -o test_shared_mem test_shared_mem.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:
