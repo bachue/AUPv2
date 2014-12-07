@@ -6,6 +6,7 @@
 #include <sys/un.h>
 
 static bool run_server(struct sockaddr_un *sap);
+static bool run_client(struct sockaddr_un *sap);
 
 int main(int argc, char  *argv[]) {
     struct sockaddr_un sa;
@@ -15,26 +16,17 @@ int main(int argc, char  *argv[]) {
     sa.sun_family = AF_UNIX;
 
     if (fork() == 0) {
-        int fd_skt;
-        char buf[100];
-
-        ec_neg1(fd_skt = socket(AF_UNIX, SOCK_STREAM, 0));
-        while (connect(fd_skt, (struct sockaddr *) &sa, sizeof(sa)) == -1) {
-            if (errno == ENOENT) {
-                sleep(1);
-                continue;
-            } else {
-                EC_FAIL
-            }
-        }
-        ec_neg1(write(fd_skt, "Hello!", sizeof("Hello!")));
-        ec_neg1(read(fd_skt, buf, sizeof(buf)));
-        printf("Client got \"%s\"\n", buf);
-        ec_neg1(close(fd_skt));
-        exit(EXIT_SUCCESS);
+        fork();
+        fork();
+        if (run_client(&sa))
+            exit(EXIT_SUCCESS);
+        else
+            EC_FAIL
     } else {
         if (run_server(&sa))
             exit(EXIT_SUCCESS);
+        else
+            EC_FAIL
     }
 EC_CLEANUP_BGN
     exit(EXIT_FAILURE);
@@ -77,6 +69,32 @@ static bool run_server(struct sockaddr_un *sap) {
         }
     }
     ec_neg1(close(fd_skt));
+    return true;
+EC_CLEANUP_BGN
+    return false;
+EC_CLEANUP_END
+}
+
+static bool run_client(struct sockaddr_un *sap) {
+    int fd_skt;
+    char buf[100];
+
+    ec_neg1(fd_skt = socket(AF_UNIX, SOCK_STREAM, 0));
+    while (connect(fd_skt, (struct sockaddr *) sap, sizeof(struct sockaddr_un)) == -1) {
+        if (errno == ENOENT) {
+            printf("Server is not ready\n");
+            sleep(1);
+            continue;
+        } else {
+            EC_FAIL
+        }
+    }
+
+    ec_neg1(write(fd_skt, "Hello!", sizeof("Hello!")));
+    ec_neg1(read(fd_skt, buf, sizeof(buf)));
+    printf("Client got \"%s\"\n", buf);
+    ec_neg1(close(fd_skt));
+
     return true;
 EC_CLEANUP_BGN
     return false;
