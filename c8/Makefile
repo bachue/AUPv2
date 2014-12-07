@@ -46,7 +46,7 @@ defaulttarget: all
 #			OS=LINUX
 #			LIBS="-lncurses -lutil"
 #			TLIBS="-pthread"
-CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
+CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -g3 -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = syserr.o time.o extio.o getblksize.o setblock.o ec.o logf.o options.o macrostr.o
@@ -59,35 +59,35 @@ mms: mkmacrostr.o $(AUPOBJS) $(PTHREADSTUB)
 macrostr.o: $(AUPSRC)/common/macrostr.c $(AUPSRC)/common/macrostr.incl
 	$(CC) $(CFLAGS) -c  -o $*.o $(AUPSRC)/common/macrostr.c
 
-mkmacrostr.o: /aup/common/mkmacrostr.c
-	$(CC) $(CFLAGS)  -c -o mkmacrostr.o /aup/common/mkmacrostr.c
+mkmacrostr.o: $(AUPSRC)/common/mkmacrostr.c
+	$(CC) $(CFLAGS)  -c -o mkmacrostr.o $(AUPSRC)/common/mkmacrostr.c
 
-options.o: /aup/common/options.c
-	$(CC) $(CFLAGS)  -c -o options.o /aup/common/options.c
+options.o: $(AUPSRC)/common/options.c
+	$(CC) $(CFLAGS)  -c -o options.o $(AUPSRC)/common/options.c
 
-pthreadstub.o: /aup/common/pthreadstub.c
-	$(CC) $(CFLAGS)  -c -o pthreadstub.o /aup/common/pthreadstub.c
+pthreadstub.o: $(AUPSRC)/common/pthreadstub.c
+	$(CC) $(CFLAGS)  -c -o pthreadstub.o $(AUPSRC)/common/pthreadstub.c
 
-ec.o: /aup/common/ec.c
-	$(CC) $(CFLAGS)  -c -o ec.o /aup/common/ec.c
+ec.o: $(AUPSRC)/common/ec.c
+	$(CC) $(CFLAGS)  -c -o ec.o $(AUPSRC)/common/ec.c
 
-logf.o: /aup/common/logf.c
-	$(CC) $(CFLAGS)  -c -o logf.o /aup/common/logf.c
+logf.o: $(AUPSRC)/common/logf.c
+	$(CC) $(CFLAGS)  -c -o logf.o $(AUPSRC)/common/logf.c
 
-setblock.o: /aup/c4/setblock.c
-	$(CC) $(CFLAGS)  -c -o setblock.o /aup/c4/setblock.c
+setblock.o: $(AUPSRC)/c4/setblock.c
+	$(CC) $(CFLAGS)  -c -o setblock.o $(AUPSRC)/c4/setblock.c
 
-extio.o: /aup/c2/extio.c
-	$(CC) $(CFLAGS)  -c -o extio.o /aup/c2/extio.c
+extio.o: $(AUPSRC)/c2/extio.c
+	$(CC) $(CFLAGS)  -c -o extio.o $(AUPSRC)/c2/extio.c
 
-syserr.o: /aup/c1/syserr.c
-	$(CC) $(CFLAGS)  -c -o syserr.o /aup/c1/syserr.c
+syserr.o: $(AUPSRC)/c1/syserr.c
+	$(CC) $(CFLAGS)  -c -o syserr.o $(AUPSRC)/c1/syserr.c
 
-time.o: /aup/c1/time.c
-	$(CC) $(CFLAGS)  -c -o time.o /aup/c1/time.c
+time.o: $(AUPSRC)/c1/time.c
+	$(CC) $(CFLAGS)  -c -o time.o $(AUPSRC)/c1/time.c
 
-getblksize.o: /aup/c2/getblksize.c
-	$(CC) $(CFLAGS)  -c -o getblksize.o /aup/c2/getblksize.c
+getblksize.o: $(AUPSRC)/c2/getblksize.c
+	$(CC) $(CFLAGS)  -c -o getblksize.o $(AUPSRC)/c2/getblksize.c
 
 adi: adi.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o adi adi.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -137,56 +137,56 @@ aupuname: uname.o $(AUPOBJS) $(PTHREADSTUB)
 ws: ws.o ssi.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o ws ws.o ssi.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
-ws.o: /aup/c8/ws.c
-	$(CC) $(CFLAGS)  -c -o ws.o /aup/c8/ws.c
+ws.o: $(AUPSRC)/c8/ws.c
+	$(CC) $(CFLAGS)  -c -o ws.o $(AUPSRC)/c8/ws.c
 
-minibr.o: /aup/c8/minibr.c
-	$(CC) $(CFLAGS)  -c -o minibr.o /aup/c8/minibr.c
+minibr.o: $(AUPSRC)/c8/minibr.c
+	$(CC) $(CFLAGS)  -c -o minibr.o $(AUPSRC)/c8/minibr.c
 
-adi.o: /aup/c8/adi.c
-	$(CC) $(CFLAGS)  -c -o adi.o /aup/c8/adi.c
+adi.o: $(AUPSRC)/c8/adi.c
+	$(CC) $(CFLAGS)  -c -o adi.o $(AUPSRC)/c8/adi.c
 
-sktexdgmult.o: /aup/c8/sktexdgmult.c
-	$(CC) $(CFLAGS)  -c -o sktexdgmult.o /aup/c8/sktexdgmult.c
+sktexdgmult.o: $(AUPSRC)/c8/sktexdgmult.c
+	$(CC) $(CFLAGS)  -c -o sktexdgmult.o $(AUPSRC)/c8/sktexdgmult.c
 
-sktexm.o: /aup/c8/sktexm.c
-	$(CC) $(CFLAGS)  -c -o sktexm.o /aup/c8/sktexm.c
+sktexm.o: $(AUPSRC)/c8/sktexm.c
+	$(CC) $(CFLAGS)  -c -o sktexm.o $(AUPSRC)/c8/sktexm.c
 
-ndb.o: /aup/c8/ndb.c
-	$(CC) $(CFLAGS)  -c -o ndb.o /aup/c8/ndb.c
+ndb.o: $(AUPSRC)/c8/ndb.c
+	$(CC) $(CFLAGS)  -c -o ndb.o $(AUPSRC)/c8/ndb.c
 
-sktexdgmultmsg.o: /aup/c8/sktexdgmultmsg.c
-	$(CC) $(CFLAGS)  -c -o sktexdgmultmsg.o /aup/c8/sktexdgmultmsg.c
+sktexdgmultmsg.o: $(AUPSRC)/c8/sktexdgmultmsg.c
+	$(CC) $(CFLAGS)  -c -o sktexdgmultmsg.o $(AUPSRC)/c8/sktexdgmultmsg.c
 
-byteorder.o: /aup/c8/byteorder.c
-	$(CC) $(CFLAGS)  -c -o byteorder.o /aup/c8/byteorder.c
+byteorder.o: $(AUPSRC)/c8/byteorder.c
+	$(CC) $(CFLAGS)  -c -o byteorder.o $(AUPSRC)/c8/byteorder.c
 
-sktex.o: /aup/c8/sktex.c
-	$(CC) $(CFLAGS)  -c -o sktex.o /aup/c8/sktex.c
+sktex.o: $(AUPSRC)/c8/sktex.c
+	$(CC) $(CFLAGS)  -c -o sktex.o $(AUPSRC)/c8/sktex.c
 
-br.o: /aup/c8/br.c
-	$(CC) $(CFLAGS)  -c -o br.o /aup/c8/br.c
+br.o: $(AUPSRC)/c8/br.c
+	$(CC) $(CFLAGS)  -c -o br.o $(AUPSRC)/c8/br.c
 
-uname.o: /aup/c8/uname.c
-	$(CC) $(CFLAGS)  -c -o uname.o /aup/c8/uname.c
+uname.o: $(AUPSRC)/c8/uname.c
+	$(CC) $(CFLAGS)  -c -o uname.o $(AUPSRC)/c8/uname.c
 
-sktcl.o: /aup/c8/sktcl.c
-	$(CC) $(CFLAGS)  -c -o sktcl.o /aup/c8/sktcl.c
+sktcl.o: $(AUPSRC)/c8/sktcl.c
+	$(CC) $(CFLAGS)  -c -o sktcl.o $(AUPSRC)/c8/sktcl.c
 
-sktopt.o: /aup/c8/sktopt.c
-	$(CC) $(CFLAGS)  -c -o sktopt.o /aup/c8/sktopt.c
+sktopt.o: $(AUPSRC)/c8/sktopt.c
+	$(CC) $(CFLAGS)  -c -o sktopt.o $(AUPSRC)/c8/sktopt.c
 
-sktexdg.o: /aup/c8/sktexdg.c
-	$(CC) $(CFLAGS)  -c -o sktexdg.o /aup/c8/sktexdg.c
+sktexdg.o: $(AUPSRC)/c8/sktexdg.c
+	$(CC) $(CFLAGS)  -c -o sktexdg.o $(AUPSRC)/c8/sktexdg.c
 
-protoent.o: /aup/c8/protoent.c
-	$(CC) $(CFLAGS)  -c -o protoent.o /aup/c8/protoent.c
+protoent.o: $(AUPSRC)/c8/protoent.c
+	$(CC) $(CFLAGS)  -c -o protoent.o $(AUPSRC)/c8/protoent.c
 
-miniws.o: /aup/c8/miniws.c
-	$(CC) $(CFLAGS)  -c -o miniws.o /aup/c8/miniws.c
+miniws.o: $(AUPSRC)/c8/miniws.c
+	$(CC) $(CFLAGS)  -c -o miniws.o $(AUPSRC)/c8/miniws.c
 
-ssi.o: /aup/c8/ssi.c
-	$(CC) $(CFLAGS)  -c -o ssi.o /aup/c8/ssi.c
+ssi.o: $(AUPSRC)/c8/ssi.c
+	$(CC) $(CFLAGS)  -c -o ssi.o $(AUPSRC)/c8/ssi.c
 
 all:  ws aupuname sktexdg byteorder adi sktexm br sktexdgmult sktcl sktex ndb miniws protoent sktexdgmultmsg minibr sktopt
 clean:

@@ -46,11 +46,11 @@ defaulttarget: all
 #			OS=LINUX
 #			LIBS="-lncurses -lutil"
 #			TLIBS="-pthread"
-CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
+CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g3 -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -120,6 +120,9 @@ posix_sem_consumer.o: $(AUPSRC)/mytest/posix_sem_consumer.c
 test_shared_mem.o: $(AUPSRC)/mytest/test_shared_mem.c
 	$(CC) $(CFLAGS)  -c -o test_shared_mem.o $(AUPSRC)/mytest/test_shared_mem.c
 
+simple_socket_test.o: $(AUPSRC)/mytest/simple_socket_test.c
+	$(CC) $(CFLAGS)  -c -o simple_socket_test.o $(AUPSRC)/mytest/simple_socket_test.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -181,6 +184,9 @@ posix_sem_consumer: posix_sem_consumer.o
 
 test_shared_mem: test_shared_mem.o
 	$(CC) -o test_shared_mem test_shared_mem.o $(AUPOBJS) $(LIBS)
+
+simple_socket_test: simple_socket_test.o
+	$(CC) -o simple_socket_test simple_socket_test.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:
