@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g3 -Wimplicit -Wstr
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test order_test http_client
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test order_test http_client getaddrinfo
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -129,6 +129,9 @@ order_test.o: $(AUPSRC)/mytest/order_test.c
 http_client.o: $(AUPSRC)/mytest/http_client.c
 	$(CC) $(CFLAGS)  -c -o http_client.o $(AUPSRC)/mytest/http_client.c
 
+getaddrinfo.o: $(AUPSRC)/mytest/getaddrinfo.c
+	$(CC) $(CFLAGS)  -c -o getaddrinfo.o $(AUPSRC)/mytest/getaddrinfo.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -199,6 +202,9 @@ order_test: order_test.o
 
 http_client: http_client.o
 	$(CC) -o http_client http_client.o $(AUPOBJS) $(LIBS)
+
+getaddrinfo: getaddrinfo.o
+	$(CC) -o getaddrinfo getaddrinfo.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:
