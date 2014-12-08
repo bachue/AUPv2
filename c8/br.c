@@ -285,7 +285,7 @@ static void display(const char *s, int len, bool showtags,
 			}
 			break;
 		default:
-			fprintf(stderr, __FILE__ ":" __func__ " -- bad state\n");
+			fprintf(stderr, __FILE__ ":%s -- bad state\n", __func__);
 			exit(EXIT_FAILURE);
 		}
 	}
