@@ -46,7 +46,7 @@ defaulttarget: all
 #			OS=LINUX
 #			LIBS="-lncurses -lutil"
 #			TLIBS="-pthread"
-CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
+CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -I$(AUPSRC)/c6 -Wimplicit -Wstrict-prototypes -g3 -Wall -D$(OS) -D_REENTRANT -D_THREAD_SAFE
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = syserr.o time.o extio.o getblksize.o setblock.o ec.o logf.o options.o macrostr.o
@@ -59,35 +59,35 @@ mms: mkmacrostr.o $(AUPOBJS) $(PTHREADSTUB)
 macrostr.o: $(AUPSRC)/common/macrostr.c $(AUPSRC)/common/macrostr.incl
 	$(CC) $(CFLAGS) -c  -o $*.o $(AUPSRC)/common/macrostr.c
 
-mkmacrostr.o: /aup/common/mkmacrostr.c
-	$(CC) $(CFLAGS)  -c -o mkmacrostr.o /aup/common/mkmacrostr.c
+mkmacrostr.o: $(AUPSRC)/common/mkmacrostr.c
+	$(CC) $(CFLAGS)  -c -o mkmacrostr.o $(AUPSRC)/common/mkmacrostr.c
 
-options.o: /aup/common/options.c
-	$(CC) $(CFLAGS)  -c -o options.o /aup/common/options.c
+options.o: $(AUPSRC)/common/options.c
+	$(CC) $(CFLAGS)  -c -o options.o $(AUPSRC)/common/options.c
 
-pthreadstub.o: /aup/common/pthreadstub.c
-	$(CC) $(CFLAGS)  -c -o pthreadstub.o /aup/common/pthreadstub.c
+pthreadstub.o: $(AUPSRC)/common/pthreadstub.c
+	$(CC) $(CFLAGS)  -c -o pthreadstub.o $(AUPSRC)/common/pthreadstub.c
 
-ec.o: /aup/common/ec.c
-	$(CC) $(CFLAGS)  -c -o ec.o /aup/common/ec.c
+ec.o: $(AUPSRC)/common/ec.c
+	$(CC) $(CFLAGS)  -c -o ec.o $(AUPSRC)/common/ec.c
 
-logf.o: /aup/common/logf.c
-	$(CC) $(CFLAGS)  -c -o logf.o /aup/common/logf.c
+logf.o: $(AUPSRC)/common/logf.c
+	$(CC) $(CFLAGS)  -c -o logf.o $(AUPSRC)/common/logf.c
 
-setblock.o: /aup/c4/setblock.c
-	$(CC) $(CFLAGS)  -c -o setblock.o /aup/c4/setblock.c
+setblock.o: $(AUPSRC)/c4/setblock.c
+	$(CC) $(CFLAGS)  -c -o setblock.o $(AUPSRC)/c4/setblock.c
 
-extio.o: /aup/c2/extio.c
-	$(CC) $(CFLAGS)  -c -o extio.o /aup/c2/extio.c
+extio.o: $(AUPSRC)/c2/extio.c
+	$(CC) $(CFLAGS)  -c -o extio.o $(AUPSRC)/c2/extio.c
 
-syserr.o: /aup/c1/syserr.c
-	$(CC) $(CFLAGS)  -c -o syserr.o /aup/c1/syserr.c
+syserr.o: $(AUPSRC)/c1/syserr.c
+	$(CC) $(CFLAGS)  -c -o syserr.o $(AUPSRC)/c1/syserr.c
 
-time.o: /aup/c1/time.c
-	$(CC) $(CFLAGS)  -c -o time.o /aup/c1/time.c
+time.o: $(AUPSRC)/c1/time.c
+	$(CC) $(CFLAGS)  -c -o time.o $(AUPSRC)/c1/time.c
 
-getblksize.o: /aup/c2/getblksize.c
-	$(CC) $(CFLAGS)  -c -o getblksize.o /aup/c2/getblksize.c
+getblksize.o: $(AUPSRC)/c2/getblksize.c
+	$(CC) $(CFLAGS)  -c -o getblksize.o $(AUPSRC)/c2/getblksize.c
 
 alarm_test: alarm_test.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o alarm_test alarm_test.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
@@ -128,47 +128,47 @@ thrq: thrq.o $(AUPOBJS)
 tmr: tmr.o $(AUPOBJS) $(PTHREADSTUB)
 	$(CC) -o tmr tmr.o $(AUPOBJS) $(LIBS) $(PTHREADSTUB)
 
-thrq.o: /aup/c9/thrq.c
-	$(CC) $(CFLAGS)  -c -o thrq.o /aup/c9/thrq.c
+thrq.o: $(AUPSRC)/c9/thrq.c
+	$(CC) $(CFLAGS)  -c -o thrq.o $(AUPSRC)/c9/thrq.c
 
-prcssync.o: /aup/c9/prcssync.c
-	$(CC) $(CFLAGS)  -c -o prcssync.o /aup/c9/prcssync.c
+prcssync.o: $(AUPSRC)/c9/prcssync.c
+	$(CC) $(CFLAGS)  -c -o prcssync.o $(AUPSRC)/c9/prcssync.c
 
-slp.o: /aup/c9/slp.c
-	$(CC) $(CFLAGS)  -c -o slp.o /aup/c9/slp.c
+slp.o: $(AUPSRC)/c9/slp.c
+	$(CC) $(CFLAGS)  -c -o slp.o $(AUPSRC)/c9/slp.c
 
-siginfo.o: /aup/c9/siginfo.c
-	$(CC) $(CFLAGS)  -c -o siginfo.o /aup/c9/siginfo.c
+siginfo.o: $(AUPSRC)/c9/siginfo.c
+	$(CC) $(CFLAGS)  -c -o siginfo.o $(AUPSRC)/c9/siginfo.c
 
-ctx.o: /aup/c9/ctx.c
-	$(CC) $(CFLAGS)  -c -o ctx.o /aup/c9/ctx.c
+ctx.o: $(AUPSRC)/c9/ctx.c
+	$(CC) $(CFLAGS)  -c -o ctx.o $(AUPSRC)/c9/ctx.c
 
-intro2.o: /aup/c9/intro2.c
-	$(CC) $(CFLAGS)  -c -o intro2.o /aup/c9/intro2.c
+intro2.o: $(AUPSRC)/c9/intro2.c
+	$(CC) $(CFLAGS)  -c -o intro2.o $(AUPSRC)/c9/intro2.c
 
-slp-simple.o: /aup/slp-simplec9/slp-simple.c
-	$(CC) $(CFLAGS)  -c -o slp-simple.o /aup/slp-simplec9/slp-simple.c
+slp-simple.o: $(AUPSRC)/slp-simplec9/slp-simple.c
+	$(CC) $(CFLAGS)  -c -o slp-simple.o $(AUPSRC)/slp-simplec9/slp-simple.c
 
-sigminthr.o: /aup/c9/sigminthr.c
-	$(CC) $(CFLAGS)  -c -o sigminthr.o /aup/c9/sigminthr.c
+sigminthr.o: $(AUPSRC)/c9/sigminthr.c
+	$(CC) $(CFLAGS)  -c -o sigminthr.o $(AUPSRC)/c9/sigminthr.c
 
-sigmin.o: /aup/c9/sigmin.c
-	$(CC) $(CFLAGS)  -c -o sigmin.o /aup/c9/sigmin.c
+sigmin.o: $(AUPSRC)/c9/sigmin.c
+	$(CC) $(CFLAGS)  -c -o sigmin.o $(AUPSRC)/c9/sigmin.c
 
-tmr.o: /aup/c9/tmr.c
-	$(CC) $(CFLAGS)  -c -o tmr.o /aup/c9/tmr.c
+tmr.o: $(AUPSRC)/c9/tmr.c
+	$(CC) $(CFLAGS)  -c -o tmr.o $(AUPSRC)/c9/tmr.c
 
-jmp.o: /aup/c9/jmp.c
-	$(CC) $(CFLAGS)  -c -o jmp.o /aup/c9/jmp.c
+jmp.o: $(AUPSRC)/c9/jmp.c
+	$(CC) $(CFLAGS)  -c -o jmp.o $(AUPSRC)/c9/jmp.c
 
-intro.o: /aup/c9/intro.c
-	$(CC) $(CFLAGS)  -c -o intro.o /aup/c9/intro.c
+intro.o: $(AUPSRC)/c9/intro.c
+	$(CC) $(CFLAGS)  -c -o intro.o $(AUPSRC)/c9/intro.c
 
-sighandler.o: /aup/c9/sighandler.c
-	$(CC) $(CFLAGS)  -c -o sighandler.o /aup/c9/sighandler.c
+sighandler.o: $(AUPSRC)/c9/sighandler.c
+	$(CC) $(CFLAGS)  -c -o sighandler.o $(AUPSRC)/c9/sighandler.c
 
-alarm_test.o: /aup/c9/alarm_test.c
-	$(CC) $(CFLAGS)  -c -o alarm_test.o /aup/c9/alarm_test.c
+alarm_test.o: $(AUPSRC)/c9/alarm_test.c
+	$(CC) $(CFLAGS)  -c -o alarm_test.o $(AUPSRC)/c9/alarm_test.c
 
 all:  siginfo sighandler intro slp ctx sigmin sigminthr prcssync tmr thrq jmp intro2 alarm_test
 clean:

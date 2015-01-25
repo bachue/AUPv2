@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g3 -Wimplicit -Wstr
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test order_test http_client getaddrinfo
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test order_test http_client getaddrinfo udp_test sig_on_subprocess rtsig_test1 rtsig_test2
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -132,6 +132,18 @@ http_client.o: $(AUPSRC)/mytest/http_client.c
 getaddrinfo.o: $(AUPSRC)/mytest/getaddrinfo.c
 	$(CC) $(CFLAGS)  -c -o getaddrinfo.o $(AUPSRC)/mytest/getaddrinfo.c
 
+udp_test.o: $(AUPSRC)/mytest/udp_test.c
+	$(CC) $(CFLAGS)  -c -o udp_test.o $(AUPSRC)/mytest/udp_test.c
+
+sig_on_subprocess.o: $(AUPSRC)/mytest/sig_on_subprocess.c
+	$(CC) $(CFLAGS)  -c -o sig_on_subprocess.o $(AUPSRC)/mytest/sig_on_subprocess.c
+
+rtsig_test1.o: $(AUPSRC)/mytest/rtsig_test1.c
+	$(CC) $(CFLAGS)  -c -o rtsig_test1.o $(AUPSRC)/mytest/rtsig_test1.c
+
+rtsig_test2.o: $(AUPSRC)/mytest/rtsig_test2.c
+	$(CC) $(CFLAGS)  -c -o rtsig_test2.o $(AUPSRC)/mytest/rtsig_test2.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -205,6 +217,18 @@ http_client: http_client.o
 
 getaddrinfo: getaddrinfo.o
 	$(CC) -o getaddrinfo getaddrinfo.o $(AUPOBJS) $(LIBS)
+
+udp_test: udp_test.o
+	$(CC) -o udp_test udp_test.o $(AUPOBJS) $(LIBS)
+
+sig_on_subprocess: sig_on_subprocess.o
+	$(CC) -o sig_on_subprocess sig_on_subprocess.o $(AUPOBJS) $(LIBS)
+
+rtsig_test1: rtsig_test1.o
+	$(CC) -o rtsig_test1 rtsig_test1.o $(AUPOBJS) $(LIBS)
+
+rtsig_test2: rtsig_test2.o
+	$(CC) -o rtsig_test2 rtsig_test2.o $(AUPOBJS) $(LIBS) -pthread
 
 all:  $(EXECS)
 clean:
