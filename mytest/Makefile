@@ -50,7 +50,7 @@ CFLAGS = $(INCLUDES) -I$(AUPSRC)/include -I$(AUPSRC)/common -g3 -Wimplicit -Wstr
 CC = gcc
 # Same objects are used all the time, sometimes linking in unnecessary files.
 AUPOBJS = $(AUPSRC)/common/ec.o $(AUPSRC)/common/logf.o $(AUPSRC)/common/macrostr.o $(AUPSRC)/c1/syserr.o
-EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test order_test http_client getaddrinfo udp_test sig_on_subprocess rtsig_test1 rtsig_test2
+EXECS = hello testlock append_test aread setblock readany readany2 readany3 test_tc_keystroke test_tc_setraw fsort0 fsort msg_server msg_client mq_server mq_client sysv_sem_producer sysv_sem_consumer posix_sem_producer posix_sem_consumer test_shared_mem simple_socket_test order_test http_client getaddrinfo udp_test sig_on_subprocess rtsig_test1 rtsig_test2 alarm itimer time
 #############################################
 # Utility to build macro-string program
 #############################################
@@ -144,6 +144,15 @@ rtsig_test1.o: $(AUPSRC)/mytest/rtsig_test1.c
 rtsig_test2.o: $(AUPSRC)/mytest/rtsig_test2.c
 	$(CC) $(CFLAGS)  -c -o rtsig_test2.o $(AUPSRC)/mytest/rtsig_test2.c
 
+alarm.o: $(AUPSRC)/mytest/alarm.c
+	$(CC) $(CFLAGS)  -c -o alarm.o $(AUPSRC)/mytest/alarm.c
+
+itimer.o: $(AUPSRC)/mytest/itimer.c
+	$(CC) $(CFLAGS)  -c -o itimer.o $(AUPSRC)/mytest/itimer.c
+
+time.o: $(AUPSRC)/mytest/time.c
+	$(CC) $(CFLAGS)  -c -o time.o $(AUPSRC)/mytest/time.c
+
 hello: hello.o
 	$(CC) $(CFLAGS) -o hello hello.o $(AUPOBJS) $(LIBS)
 
@@ -229,6 +238,15 @@ rtsig_test1: rtsig_test1.o
 
 rtsig_test2: rtsig_test2.o
 	$(CC) -o rtsig_test2 rtsig_test2.o $(AUPOBJS) $(LIBS) -pthread
+
+alarm: alarm.o
+	$(CC) -o alarm alarm.o $(AUPOBJS) $(LIBS)
+
+itimer: itimer.o
+	$(CC) -o itimer itimer.o $(AUPOBJS) $(LIBS)
+
+time: time.o
+	$(CC) -o time time.o $(AUPOBJS) $(LIBS)
 
 all:  $(EXECS)
 clean:
